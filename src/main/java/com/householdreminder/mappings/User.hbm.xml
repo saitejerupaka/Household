@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 11, 2015 1:43:28 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.householdreminder.mappings.User" table="user" catalog="householdreminder">
+        <id name="userId" type="java.lang.Integer">
+            <column name="UserId" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="FirstName" length="300" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LastName" length="300" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="500" />
+        </property>
+        <property name="userPassword" type="string">
+            <column name="UserPassword" length="500" not-null="true" />
+        </property>
+        <property name="updatedOn" type="timestamp">
+            <column name="UpdatedOn" length="19" not-null="true" />
+        </property>
+        <set name="categories" table="category" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="UserId" not-null="true" />
+            </key>
+            <one-to-many class="com.householdreminder.mappings.Category" />
+        </set>
+    </class>
+</hibernate-mapping>
