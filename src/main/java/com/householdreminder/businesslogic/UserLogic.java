@@ -1,9 +1,6 @@
 package com.householdreminder.businesslogic;
 
-
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,32 +18,22 @@ public class UserLogic {
 		hibernateSession = session;
 	}
 	
-	public String registerUser(UserDTO user)
+	public Serializable registerUser(UserDTO user)
 	{
-		try
+		if(isDuplicateUser(user))
 		{
-			if(isDuplicateUser(user))
-			{
-				return "User already exists.";
-			}
-			User newUser = new User();
-			newUser.setEmail(user.getEmail());
-			newUser.setUserPassword(user.getPassword());
-			newUser.setFirstName(user.getUserFirstName());
-			newUser.setLastName(user.getUserLastName());
-			newUser.setUpdatedOn( new Date());
-			hibernateSession.beginTransaction();
-			hibernateSession.save(newUser);
-			hibernateSession.getTransaction().commit();
-			return "Registed Successfully";
+			return -1;
 		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return ex.getMessage();
-		}
-		
-		
+		User newUser = new User();
+		newUser.setEmail(user.getEmail());
+		newUser.setUserPassword(user.getPassword());
+		newUser.setFirstName(user.getUserFirstName());
+		newUser.setLastName(user.getUserLastName());
+		newUser.setUpdatedOn( new Date());
+		//hibernateSession.beginTransaction();
+		Serializable id = hibernateSession.save(newUser);
+		//hibernateSession.getTransaction().commit();
+		return id;
 	}
 	
 	private Boolean isDuplicateUser(UserDTO user)

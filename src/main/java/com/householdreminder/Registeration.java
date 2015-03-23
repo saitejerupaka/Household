@@ -1,5 +1,10 @@
 package com.householdreminder;
 
+import java.io.Serializable;
+
+
+
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,7 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.householdreminder.businesslogic.Message;
 import com.householdreminder.businesslogic.UserLogic;
 import com.householdreminder.dal.HibernateUtilities;
 import com.householdreminder.model.UserDTO;
@@ -37,10 +44,22 @@ public class Registeration {
     public String registerUser(UserDTO user)
     {
     	Session session = HibernateUtilities.getSessionFactory().openSession();
+    	Transaction tx = session.beginTransaction();
     	UserLogic ul = new UserLogic(session);
-    	String message = ul.registerUser(user);
+    	int saved = (Integer)ul.registerUser(user);
+    	session.flush();
+    	tx.commit();
     	session.close();
-    	return message;
+    	if( saved > 0){
+    		return Message.REGISTERTION_SUCCESSFULL;
+    		
+    	}
+    	if(saved == -1)
+    	{
+    		return Message.DUPLICATE_USER;
+    	}
+    	
+    	return Message.REGISTRATION_ERROR;
     	
     }
 }
