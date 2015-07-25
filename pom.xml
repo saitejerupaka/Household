@@ -34,6 +34,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            
+            <dependency>
+			  <groupId>javax.servlet</groupId>
+			  <artifactId>javax.servlet-api</artifactId>
+			  <version>3.1.0</version>
+			  <scope>provided</scope>
+			</dependency>
              
             <dependency>
     			<groupId>org.hibernate</groupId>
@@ -75,7 +82,12 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
-         
+        
+         <dependency>
+		  <groupId>javax.servlet</groupId>
+		  <artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		
         <dependency>
     			<groupId>org.hibernate</groupId>
     			<artifactId>hibernate-entitymanager</artifactId>
@@ -103,7 +115,7 @@
     </properties>
     <reporting>
   <plugins>
-	<!-- Normally, we take off the dependency report, saves time. -->
+	<!-- Normally, we take off the dependency report, saves time. 
 	<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-project-info-reports-plugin</artifactId>
@@ -112,8 +124,8 @@
 			<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 		</configuration>
 	</plugin>
- 
-	<!--  integrate maven-cobertura-plugin to project site --> 
+ -->
+	<!--  integrate maven-cobertura-plugin to project site 
 	<plugin>
 		<groupId>org.codehaus.mojo</groupId>
 		<artifactId>cobertura-maven-plugin</artifactId>
@@ -125,7 +137,7 @@
 			</formats>
 		</configuration>
 	</plugin>
- 
+ --> 
    </plugins>
 </reporting>
 

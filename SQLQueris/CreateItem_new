@@ -1,0 +1,12 @@
+use householdreminder;
+create table if not exists Item
+(
+  ItemId int not null auto_increment,
+  ItemName nvarchar(300),
+  CategoryId int not null,
+  Quantity int,
+  IsBought bit,
+  UpdatedOn TimeStamp NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  Primary key(ItemId),
+  Foreign Key(CategoryId) References Category(CategoryId)
+)

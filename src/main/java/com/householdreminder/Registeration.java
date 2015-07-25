@@ -1,6 +1,6 @@
 package com.householdreminder;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
 
 
